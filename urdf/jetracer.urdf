@@ -1,24 +1,24 @@
 <robot name="onshape">
-<link name="body">
+<link name="base_link">
 <visual>
 <origin xyz="0.0087080525256227753195 0.011073064266820448198 -0.015341633187382200387" rpy="0 -0 0" />
 <geometry>
-<mesh filename="package://jetracer_description/meshes/body.stl"/>
+<mesh filename="package://jetracer_description/meshes/base_link.stl"/>
 </geometry>
-<material name="body_material">
+<material name="base_link_material">
 <color rgba="0.61568627450980395466 0.81176470588235294379 0.92941176470588238168 1.0"/>
 </material>
 </visual>
 <collision>
 <origin xyz="0.0087080525256227753195 0.011073064266820448198 -0.015341633187382200387" rpy="0 -0 0" />
 <geometry>
-<mesh filename="package://jetracer_description/meshes/body.stl"/>
+<mesh filename="package://jetracer_description/meshes/base_link.stl"/>
 </geometry>
 </collision>
 <inertial>
-<origin xyz="0.0087080525256227492986 0.021073889490614998443 0.0015088698608053466299" rpy="0 0 0"/>
-<mass value="1.8406011312543542058" />
-<inertia ixx="0.014372590837306015513" ixy="0"  ixz="0" iyy="0.0024798752812299012203" iyz="-0.00056745694828192773645" izz="0.016253045318344528508" />
+<origin xyz="0.0087080525256227510333 0.021073889490614984565 0.0015088698608053188743" rpy="0 0 0"/>
+<mass value="1.8406011312543528735" />
+<inertia ixx="0.01437259083730600337" ixy="0"  ixz="0" iyy="0.0024798752812298968835" iyz="-0.00056745694828192990485" izz="0.016253045318344521569" />
 </inertial>
 </link>
 
@@ -40,17 +40,17 @@
 </collision>
 <inertial>
 <origin xyz="2.0902193138729243591e-17 -6.9388939039072283776e-18 -0.0038611038768896627227" rpy="0 0 0"/>
-<mass value="0.056575521129803865716" />
-<inertia ixx="2.2657358073729850134e-05" ixy="0"  ixz="3.8804929864124457146e-21" iyy="2.265735807014167288e-05" iyz="0" izz="3.8036402429236235774e-05" />
+<mass value="0.05657552112980390735" />
+<inertia ixx="2.2657358073729853522e-05" ixy="0"  ixz="3.8804929864124449623e-21" iyy="2.265735807014167288e-05" iyz="0" izz="3.8036402429236235774e-05" />
 </inertial>
 </link>
 
-<joint name="wheel1_speed" type="revolute">
+<joint name="w1" type="revolute">
 <origin xyz="-0.069591947474377163774 0.086073064266820473178 -4.2783187382156029344e-05" rpy="1.570796326794896558 -0 1.570796326794896336" />
-<parent link="body" />
+<parent link="base_link" />
 <child link="wheel" />
 <axis xyz="0 0 1"/>
-<limit effort="1" velocity="20" />
+<limit effort="1" velocity="20" lower="0" upper="6.283185307179586232"/>
 <joint_properties friction="0.0"/>
 </joint>
 
@@ -71,18 +71,18 @@
 </geometry>
 </collision>
 <inertial>
-<origin xyz="3.4779980946543691102e-17 6.9388939039072283776e-18 0.0038611038768896627227" rpy="0 0 0"/>
-<mass value="0.056575521129803865716" />
-<inertia ixx="2.2657358073729850134e-05" ixy="0"  ixz="-3.8804929864124457146e-21" iyy="2.265735807014167288e-05" iyz="0" izz="3.8036402429236235774e-05" />
+<origin xyz="3.4779980946543697265e-17 6.9388939039072283776e-18 0.0038611038768896627227" rpy="0 0 0"/>
+<mass value="0.05657552112980390735" />
+<inertia ixx="2.2657358073729853522e-05" ixy="0"  ixz="-3.8804929864124449623e-21" iyy="2.265735807014167288e-05" iyz="0" izz="3.8036402429236235774e-05" />
 </inertial>
 </link>
 
-<joint name="wheel2_speed" type="revolute">
+<joint name="w2" type="revolute">
 <origin xyz="0.087008052525622714413 0.086073064266820473178 -4.2783187382156029344e-05" rpy="1.570796326794896558 -0 1.57079632679489678" />
-<parent link="body" />
+<parent link="base_link" />
 <child link="wheel_2" />
 <axis xyz="0 0 1"/>
-<limit effort="1" velocity="20" />
+<limit effort="1" velocity="20" lower="-6.283185307179586232" upper="-0"/>
 <joint_properties friction="0.0"/>
 </joint>
 
@@ -105,7 +105,7 @@
 <inertial>
 <origin xyz="-0.0032879162357677960138 -1.2156763096182743311e-10 -0.011999988120193946436" rpy="0 0 0"/>
 <mass value="0.0019796074169460275982" />
-<inertia ixx="5.6717393901809509616e-08" ixy="-4.7616299452556444161e-16"  ixz="-7.7066964230396004134e-15" iyy="8.2461678449030876914e-08" iyz="-1.0649173921704506123e-13" izz="6.9707077822163786782e-08" />
+<inertia ixx="5.6717393901809502999e-08" ixy="-4.7616299452556483604e-16"  ixz="-7.7066964230395483486e-15" iyy="8.246167844903081074e-08" iyz="-1.0649173921704506123e-13" izz="6.9707077822163760312e-08" />
 </inertial>
 </link>
 
@@ -126,24 +126,24 @@
 </geometry>
 </collision>
 <inertial>
-<origin xyz="2.0902193138729243591e-17 -5.2041704279304220536e-18 -0.0038611038768896766005" rpy="0 0 0"/>
-<mass value="0.056575521129803865716" />
-<inertia ixx="2.2657358073729850134e-05" ixy="0"  ixz="3.8804929864124457146e-21" iyy="2.265735807014167288e-05" iyz="0" izz="3.8036402429236235774e-05" />
+<origin xyz="2.0902193138729243591e-17 -5.2041704279304212832e-18 -0.0038611038768896766005" rpy="0 0 0"/>
+<mass value="0.05657552112980390735" />
+<inertia ixx="2.2657358073729853522e-05" ixy="0"  ixz="3.8804929864124449623e-21" iyy="2.265735807014167288e-05" iyz="0" izz="3.8036402429236235774e-05" />
 </inertial>
 </link>
 
-<joint name="wheel3_speed" type="revolute">
+<joint name="w3" type="revolute">
 <origin xyz="-0.018299999999999996825 -2.7755575615628913511e-17 -0.01199999999999999678" rpy="-1.570796326794896336 -0 -1.570796326794896558" />
 <parent link="control_arm" />
 <child link="wheel_3" />
 <axis xyz="0 0 1"/>
-<limit effort="1" velocity="20" />
+<limit effort="1" velocity="20" lower="0" upper="6.283185307179586232"/>
 <joint_properties friction="0.0"/>
 </joint>
 
 <joint name="control_arm1" type="revolute">
 <origin xyz="-0.051291946811439795284 -0.063926918324662851401 -0.013541633187382176584" rpy="-3.141592653589793116 1.1832913578315177081e-30 -6.5108994622048053999e-47" />
-<parent link="body" />
+<parent link="base_link" />
 <child link="control_arm" />
 <axis xyz="0 0 1"/>
 <limit effort="1" velocity="20" lower="-1.570796326794896558" upper="1.570796326794896558"/>
@@ -169,7 +169,7 @@
 <inertial>
 <origin xyz="-0.0032879162357677960138 -1.2156763096182743311e-10 -0.011999988120193946436" rpy="0 0 0"/>
 <mass value="0.0019796074169460275982" />
-<inertia ixx="5.6717393901809509616e-08" ixy="-4.7616299452556444161e-16"  ixz="-7.7066964230396004134e-15" iyy="8.2461678449030876914e-08" iyz="-1.0649173921704506123e-13" izz="6.9707077822163786782e-08" />
+<inertia ixx="5.6717393901809502999e-08" ixy="-4.7616299452556483604e-16"  ixz="-7.7066964230395483486e-15" iyy="8.246167844903081074e-08" iyz="-1.0649173921704506123e-13" izz="6.9707077822163760312e-08" />
 </inertial>
 </link>
 
@@ -191,23 +191,23 @@
 </collision>
 <inertial>
 <origin xyz="2.0902193138729243591e-17 -8.6736173798840354721e-18 -0.0038611038768896766005" rpy="0 0 0"/>
-<mass value="0.056575521129803865716" />
-<inertia ixx="2.2657358073729850134e-05" ixy="0"  ixz="3.8804929864124457146e-21" iyy="2.265735807014167288e-05" iyz="0" izz="3.8036402429236235774e-05" />
+<mass value="0.05657552112980390735" />
+<inertia ixx="2.2657358073729853522e-05" ixy="0"  ixz="3.8804929864124449623e-21" iyy="2.265735807014167288e-05" iyz="0" izz="3.8036402429236235774e-05" />
 </inertial>
 </link>
 
-<joint name="wheel4_speed" type="revolute">
+<joint name="w4" type="revolute">
 <origin xyz="-0.018300000000000010703 0 -0.012000000000000005454" rpy="1.570796326794896336 -0 1.570796326794896558" />
 <parent link="control_arm_2" />
 <child link="wheel_4" />
 <axis xyz="0 0 1"/>
-<limit effort="1" velocity="20" />
+<limit effort="1" velocity="20" lower="0" upper="6.283185307179586232"/>
 <joint_properties friction="0.0"/>
 </joint>
 
 <joint name="control_arm2" type="revolute">
 <origin xyz="0.068708051862685345923 -0.063926918324662823645 -0.013541633187382176584" rpy="3.141592653589793116 -0 3.141592653589793116" />
-<parent link="body" />
+<parent link="base_link" />
 <child link="control_arm_2" />
 <axis xyz="0 0 1"/>
 <limit effort="1" velocity="20" lower="-1.570796326794896558" upper="1.570796326794896558"/>
