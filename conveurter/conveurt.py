@@ -28,6 +28,7 @@ try:
         urdf_content = file.read()
 
     urdf_content = urdf_content.replace("package:///", "package://jetracer_description/meshes/")
+    urdf_content = urdf_content.replace('<joint_properties friction="0.0"/>', '<dynamics friction="0.0"/>')
 
     with open(os.path.join(out_urdf_dir, out_urdf_file), "w") as file:
         file.write(urdf_content)
