@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="jetracer">
+
+    <!-- ================ JOINTS: wheel joints ================ -->
+
+    <xacro:macro name="jetracer_wheel_joint" params="joint_name parent_name child_name joint_type *origin">
+        <joint name="${joint_name}" type="${joint_type}">
+            <parent link="${parent_name}" />
+            <child link="${child_name}" />
+            <xacro:insert_block name="origin"/>
+            <axis xyz="0 0 1"/>
+            <limit effort="1" velocity="20" lower="0" upper="${2*PI}"/>
+            <joint_properties friction="0.0"/>
+        </joint>
+    </xacro:macro>
+
+    <!-- ================ JOINTS: wheel controls ================ -->
+
+    <xacro:macro name="jetracer_wheel_control_joint" params="joint_name parent_name child_name joint_type *origin">
+        <joint name="${joint_name}" type="${joint_type}">
+            <parent link="${parent_name}" />
+            <child link="${child_name}" />
+            <xacro:insert_block name="origin"/>
+            <axis xyz="0 0 1"/>
+            <limit effort="1" velocity="20" lower="-${PI/2}" upper="${PI/2}"/>
+            <joint_properties friction="0.0"/>
+        </joint>
+    </xacro:macro> 
+
+</robot>

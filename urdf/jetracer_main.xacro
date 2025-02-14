@@ -1,0 +1,139 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="jetracer_main">
+
+    <!-- ================ PROPERTIES ================ -->
+
+    <!-- meshes -->
+    <!-- 
+        The reason why we prefix the 'file://' to the URI is to define the protocol (or URI scheme) to be used
+        this one works outside of Gazebo and ROS and so when processed by a other program it doesn't matter
+        where the package is located on the system as long as the Xacro program resolves the path of the package
+        correctly.
+        Gazebo uses model://
+        ROS uses package://
+
+        we could also use a URL with a 'https://' protocol (or URL scheme) if we want to store the meshes on the network
+
+    -->
+
+    <xacro:property name="base_link_mesh" value="file://$(find jetracer_description)/meshes/base_link.stl" />
+    <xacro:property name="wheel_mesh" value="file://$(find jetracer_description)/meshes/wheel.stl" />
+    <xacro:property name="wheel_control_mesh" value="file://$(find jetracer_description)/meshes/control_arm.stl" />
+
+    <!-- constants -->
+    <xacro:property name="PI" value="3.1415926536" />
+
+    <!-- ================ INCLUDES ================ -->
+
+    <xacro:include filename="./jetracer_base_link.xacro" />
+    <xacro:include filename="./jetracer_wheel.xacro" />
+    <xacro:include filename="./jetracer_wheel_control.xacro" />
+    <xacro:include filename="./jetracer_joints.xacro" />
+
+    <!-- ================ LINKS ================ -->
+
+    <!-- base link -->
+    <xacro:base_link name="base_link" mesh="${base_link_mesh}">
+        <origin xyz="0.0087080525256227753195 0.011073064266820448198 -0.015341633187382200387"
+            rpy="0 0 0" />
+    </xacro:base_link>
+
+    <!-- wheels -->
+    <xacro:wheel name="wheel_1" mesh="${wheel_mesh}">
+        <origin xyz="-0.074999999999999983347 -0.015298850000000051297 0.078299999999999952971"
+            rpy="-1.570796326794896558 -1.570796326794896336 0" />
+    </xacro:wheel>
+
+    <xacro:wheel name="wheel_2" mesh="${wheel_mesh}">
+        <origin xyz="-0.074999999999999969469 0.015298850000000051297 -0.078299999999999952971"
+            rpy="1.570796326794896558 1.570796326794896336 0" />
+    </xacro:wheel>
+
+    <xacro:wheel name="wheel_3" mesh="${wheel_mesh}">
+        <origin xyz="-0.074999999999999983347 -0.015298850000000049562 0.078299999999999939093"
+            rpy="-1.570796326794896558 -1.570796326794896336 0" />
+    </xacro:wheel>
+
+    <xacro:wheel name="wheel_4" mesh="${wheel_mesh}">
+        <origin xyz="-0.074999999999999983347 -0.015298850000000053032 0.078299999999999939093"
+            rpy="-1.570796326794896558 -1.570796326794896336 0" />
+    </xacro:wheel>
+
+    <!-- wheel control -->
+    <xacro:wheel_control name="wheel_control_1" mesh="${wheel_control_mesh}">
+        <origin xyz="0.059999999337062570604 -0.074999982591483299599 0.0017999999999999995171"
+            rpy="${PI} -0 -1.9156308376613688848e-63" />
+    </xacro:wheel_control>
+
+    <xacro:wheel_control name="wheel_control_2" mesh="${wheel_control_mesh}">
+        <origin xyz="0.059999999337062570604 -0.074999982591483299599 0.0017999999999999995171"
+            rpy="${PI} -0 0" />
+    </xacro:wheel_control>
+
+    <!-- ================ JOINTS ================ -->
+
+    <!-- ================ JOINTS: wheel joints ================ -->
+
+    <xacro:jetracer_wheel_joint
+        joint_name="w1"
+        parent_name="base_link"
+        child_name="wheel_1"
+        joint_type="continuous"
+    >
+        <origin xyz="-0.069591947474377163774 0.086073064266820473178 -4.2783187382156029344e-05"
+            rpy="1.570796326794896558 -0 1.570796326794896336" />
+    </xacro:jetracer_wheel_joint>
+
+    <xacro:jetracer_wheel_joint
+        joint_name="w2"
+        parent_name="base_link"
+        child_name="wheel_2"
+        joint_type="continuous"
+    >
+        <origin xyz="0.087008052525622714413 0.086073064266820473178 -4.2783187382156029344e-05"
+            rpy="1.570796326794896558 -0 1.57079632679489678" />
+    </xacro:jetracer_wheel_joint>
+
+    <xacro:jetracer_wheel_joint
+        joint_name="w3"
+        parent_name="wheel_control_1"
+        child_name="wheel_3"
+        joint_type="continuous"
+    >
+        <origin xyz="-0.018299999999999996825 -2.7755575615628913511e-17 -0.01199999999999999678"
+            rpy="-1.570796326794896336 -0 -1.570796326794896558" />
+    </xacro:jetracer_wheel_joint>
+
+    <xacro:jetracer_wheel_joint
+        joint_name="w4"
+        parent_name="wheel_control_2"
+        child_name="wheel_4"
+        joint_type="continuous"
+    >
+        <origin xyz="-0.018300000000000010703 0 -0.012000000000000005454"
+            rpy="1.570796326794896336 -0 1.570796326794896558" />
+    </xacro:jetracer_wheel_joint>
+
+    <!-- ================ JOINTS: wheel controls ================ -->
+
+    <xacro:jetracer_wheel_control_joint
+        joint_name="control_1"
+        parent_name="base_link"
+        child_name="wheel_control_1"
+        joint_type="revolute"
+    >
+        <origin xyz="-0.051291946811439795284 -0.063926918324662851401 -0.013541633187382176584"
+            rpy="-${PI} 1.1832913578315177081e-30 -6.5108994622048053999e-47" />
+    </xacro:jetracer_wheel_control_joint>
+
+    <xacro:jetracer_wheel_control_joint
+        joint_name="control_2"
+        parent_name="base_link"
+        child_name="wheel_control_2"
+        joint_type="revolute"
+    >
+        <origin xyz="0.068708051862685345923 -0.063926918324662823645 -0.013541633187382176584"
+            rpy="${PI} -0 ${PI}" />
+    </xacro:jetracer_wheel_control_joint>
+
+</robot>
