@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="jetracer">
+
+    <xacro:macro name="links" params="name mesh material mass *origin *inertial">
+        <link name="${name}">
+            <visual name="${name}_visual">
+                <xacro:insert_block name="origin"/>
+                <geometry>
+                    <mesh filename="${mesh}" scale="${scale}"/>
+                </geometry>
+                <material name="${name}_material">
+                    <color rgba="${material}"/>
+                </material>
+            </visual>
+            <collision name="${name}_collision">
+                <xacro:insert_block name="origin"/>
+                <geometry>
+                    <mesh filename="${mesh}" scale="${scale}"/>
+                </geometry>
+            </collision>
+            <xacro:insert_block name="inertial" />
+        </link>
+    </xacro:macro>
+
+    <!-- ================ JOINTS ================ -->
+    <!-- base link -->
+    <xacro:links name="base_link" mesh="${base_link_mesh}" material="${base_link_material}" mass="${base_link_mass}">
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+        <inertial>
+            <origin xyz="-0.2188431446735764 0.21801110433804433 0.042341304497060785" rpy="0.0 0.0 0.0" />
+            <mass value="1.176913520449639" />
+            <inertia ixx="0.00471474301552666" iyy="0.001726030052517934" izz="0.004958600022427171" ixy="2.26448138782902e-05" iyz="0.00034033398720116436" ixz="-6.326755186562055e-05" />
+        </inertial>
+    </xacro:links>
+
+    <!-- Rear left wheel link -->
+    <xacro:links name="Back_left_wheel_link" mesh="${Back_left_wheel_mesh}" material="${Back_left_wheel_material}" mass="${Back_left_wheel_mass}">
+        <origin xyz="-0.018075608707960746 0.05269847562646184 0.03526135333220688" rpy="-3.141592653589791 -5.80933483705982e-14 6.103732271394052e-15" />
+        <inertial>
+            <origin xyz="2.927331706214842e-05 0.0004286765389286629 -0.0022227221997959657" rpy="-3.944304526105059e-31 -0.0 0.0" />
+            <mass value="0.05430175599038289" />
+            <inertia ixx="1.8751279746962253e-05" iyy="1.877718038660288e-05" izz="3.0157649089595064e-05" ixy="2.1102116786955547e-09" iyz="2.4884449100952044e-08" ixz="1.7807953031446138e-09" />
+        </inertial>
+    </xacro:links>
+
+    <!-- Rear right wheel link -->
+    <xacro:links name="Back_right_wheel_link" mesh="${Back_right_wheel_link}" material="${Back_right_wheel_material}" mass="${Back_right_wheel_mass}">
+        <origin xyz="0.018075608540586076 0.05269847562646175 -0.035261353332204315" rpy="-1.1782268753097997e-15 -5.899896782659704e-14 -3.1415926535897873" />
+        <inertial>
+            <origin xyz="-2.927348443597877e-05 0.00042867653892818324 0.0022227221998004864" rpy="3.944304526105059e-31 -0.0 0.0" />
+            <mass value="0.054301755990382755" />
+            <inertia ixx="1.8751279746962144e-05" iyy="1.877718038660288e-05" izz="3.0157649089595227e-05" ixy="-2.110211679820415e-09" iyz="-2.4884449095749382e-08" ixz="1.7807953431086937e-09" />
+        </inertial>
+    </xacro:links>
+
+    <!-- Front left control link -->
+    <xacro:links name="Control_left_wheel_link" mesh="${Control_left_wheel_link}" material="${Control_left_wheel_material}" mass="${Control_left_wheel_mass}">
+        <origin xyz="-0.010192779328301808 -0.007691863571393674 0.012000000000000552" rpy="-3.1415926535897927 1.5707963267948903 0" />
+        <inertial>
+            <origin xyz="-0.0033095632503630946 -0.0053147845774640335 0.012000000272433092" rpy="0.0 -0.0 5.4738221262687997e-48" />
+            <mass value="0.0022633439186205465" />
+            <inertia ixx="2.3321617796315383e-07" iyy="1.198225214393559e-07" izz="2.609982653238965e-07" ixy="7.588558546818485e-08" iyz="-5.316368380513131e-15" ixz="-6.531687210087995e-16" />
+        </inertial>
+    </xacro:links>
+
+    <!-- Front left wheel link -->
+    <xacro:links name="Front_left_wheel_link" mesh="${Front_left_wheel_mesh}" material="${Front_left_wheel_material}" mass="${Front_left_wheel_mass}">
+        <origin xyz="0.022154354003900503 0.05269847205506998 0.018075608624273445" rpy="-3.1415926535897922 1.57079632679489 0" />
+        <inertial>
+            <origin xyz="-0.01532972152810328 0.00042867296753681396 -2.9273400749354473e-05" rpy="1.7105694144590052e-49 -2.189528850507527e-47 0.0" />
+            <mass value="0.05430175599038289" />
+            <inertia ixx="3.0157649089595247e-05" iyy="1.8777180386603312e-05" izz="1.875127974696161e-05" ixy="2.4884449094961056e-08" iyz="-2.110211678844637e-09" ixz="-1.7807953411175636e-09" />
+        </inertial>
+    </xacro:links>
+
+    <!-- Front right control link -->
+    <xacro:links name="Control_right_wheel_link" mesh="${Control_right_wheel_link}" material="${Control_right_wheel_material}" mass="${Control_right_wheel_mass}">
+        <origin xyz="0.010192779328303425 -0.007691863571393745 0.012000000000000451" rpy="3.1415926535897927 -1.5707963267948855 0" />
+        <inertial>
+            <origin xyz="0.003309563250364711 -0.005314784577464096 0.011999999727568005" rpy="0.0 -0.0 5.4738221262687997e-48" />
+            <mass value="0.0022633439186205465" />
+            <inertia ixx="2.3321617796315383e-07" iyy="1.198225214393576e-07" izz="2.6099826532390326e-07" ixy="-7.588558546818485e-08" iyz="5.316368019691282e-15" ixz="-6.531691108253035e-16" />
+        </inertial>
+    </xacro:links>
+
+    <!-- Front right wheel link -->
+    <xacro:links name="Front_right_wheel_link" mesh="${Front_right_wheel_link}" material="${Front_right_wheel_material}" mass="${Front_right_wheel_mass}">
+        <origin xyz="-0.022154354003896773 -0.05269847919785653 0.01807560862427293" rpy="-5.855923348111018e-15 1.570796326794886 0" />
+        <inertial>
+            <origin xyz="0.015329721528106495 -0.0004286801103229632 -2.9273400749625368e-05" rpy="0.0 -0.0 0.0" />
+            <mass value="0.05430175599038288" />
+            <inertia ixx="3.0157649089595003e-05" iyy="1.8777180386602716e-05" izz="1.875127974696226e-05" ixy="2.4884449095394737e-08" iyz="2.110211678790427e-09" ixz="1.7807953408871707e-09" />
+        </inertial>
+    </xacro:links>
+
+    <!-- Lidar link -->
+    <xacro:links name="Lidar_link" mesh="${Lidar_mesh}" material="${Lidar_material}" mass="${Lidar_mass}">
+        <origin xyz="-0.02800000439999895 0.07349999800000169 -0.009199999999996109" rpy="-3.141592653589793 -7.909058347620162e-15 1.5707963267948941" />
+        <inertial>
+            <origin xyz="-0.028239426420145416 0.05091848444255814 6.461931578151336e-05" rpy="0.0 -0.0 5.4738221262687997e-48" />
+            <mass value="0.08486622487588467" />
+            <inertia ixx="7.212810687965451e-05" iyy="2.7441257171711007e-05" izz="8.077472261566903e-05" ixy="-7.125364902930981e-07" iyz="-1.283711324487551e-05" ixz="-3.680051842548928e-07" />
+        </inertial>
+    </xacro:links>
+</robot>

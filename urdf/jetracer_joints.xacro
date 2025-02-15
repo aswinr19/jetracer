@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="jetracer">
+    <xacro:macro name="joint" params="joint_name parent_name child_name joint_type *origin *axis *limit">
+
+        <xacro:property name="var" value="False"/>
+
+        <joint name="${joint_name}" type="${joint_type}">
+            <parent link="${parent_name}" />
+            <child link="${child_name}" />
+            <xacro:insert_block name="origin"/>
+            
+            <xacro:if value="${ joint_type == 'revolute' or joint_type == 'continuous' }">
+                <xacro:insert_block name="axis"/>
+            </xacro:if>
+            
+            <xacro:if value="${ joint_type == 'revolute' }">
+                <xacro:insert_block name="limit"/>
+            </xacro:if>
+        </joint>
+    </xacro:macro>
+
+    <!-- ================ JOINTS ================ -->
+    <xacro:joint joint_name="Back_left_wheel_joint" parent_name="base_link" child_name="Back_left_wheel_link" joint_type="continuous" > 
+        <origin xyz="-0.2987964792328232 0.12461929244592986 0.025298850000000938" rpy="3.14159265358979 -1.5707963267948906 0" />
+        <axis xyz="0.0 -2.303712776096894e-15 1.0" />
+        <limit/>
+    </xacro:joint>
+
+    <xacro:joint joint_name="Back_right_wheel_joint" parent_name="base_link" child_name="Back_right_wheel_link" joint_type="continuous" > 
+        <origin xyz="-0.14219647923281456 0.12461929244592974 0.025298850000000928" rpy="-3.141592653589792 -1.5707963267948906 0" />
+        <axis xyz="0.0 2.1926904736343785e-15 1.0" />
+        <limit/>
+    </xacro:joint>
+
+    <xacro:joint joint_name="Control_left_joint" parent_name="base_link" child_name="Control_left_wheel_link" joint_type="revolute" > 
+        <origin xyz="-0.28049647923282217 0.27461929244593714 0.035799999999999846" rpy="3.141592653589785 1.0191500421363112e-16 -7.546047120498976e-16" />
+        <axis xyz="2.465190328815662e-32 2.2204460492503136e-16 0.9999999999999999" />
+        <limit lower="-${PI/2}" upper="${PI/2}" effort="1000000" velocity="1000000" />
+    </xacro:joint>
+
+    <xacro:joint joint_name="Front_left_wheel_joint" parent_name="Control_left_wheel_link" child_name="Front_left_wheel_link" joint_type="continuous" > 
+        <origin xyz="-0.005192780000000008 8.140000000018687e-06 0.012000000000000002" rpy="-2.2204460492503136e-16 -1.7256332301709638e-31 -6.783780320957819e-32" />
+        <axis xyz="0.9999999999999999 0.0 0.0" />
+        <limit/>
+    </xacro:joint>
+
+    <xacro:joint joint_name="Control_right_joint" parent_name="base_link" child_name="Control_right_wheel_link" joint_type="revolute" > 
+        <origin xyz="-0.1604964792328156 0.274619292445937 0.03579999999999983" rpy="3.141592653589785 1.0191500421363112e-16 -7.546047120498976e-16" />
+        <axis xyz="2.465190328815662e-32 2.2204460492503136e-16 0.9999999999999999" />
+        <limit lower="-${PI/2}" upper="${PI/2}" effort="1000000" velocity="1000000" />
+    </xacro:joint>
+
+    <xacro:joint joint_name="Front_right_wheel_joint" parent_name="Control_right_wheel_link" child_name="Front_right_wheel_link" joint_type="continuous" > 
+        <origin xyz="0.005192780000000008 8.140000000018687e-06 0.012000000000000002" rpy="-2.2204460492503136e-16 2.4651903288156605e-32 -6.783780320957824e-32" />
+        <axis xyz="-0.9999999999999999 0.0 0.0" />
+        <limit/>
+    </xacro:joint>
+
+    <xacro:joint joint_name="Lidar_joint" parent_name="base_link" child_name="Lidar_link" joint_type="fixed" > 
+        <origin xyz="-0.19249651923281735 0.2476192424459362 0.10997548000000107" rpy="3.141592653589785 1.0191500421363112e-16 -7.546047120498976e-16" />
+        <axis/>
+        <limit/>
+    </xacro:joint>
+</robot>
