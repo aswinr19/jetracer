@@ -4,13 +4,18 @@
   <name>jetracer_description</name>
   <version>0.0.0</version>
   <description>TODO: Package description</description>
-  <maintainer email="arno@todo.todo">arno</maintainer>
+  <maintainer email="ai_team_user@todo.todo">ai_team_user</maintainer>
   <license>TODO: License declaration</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
+
+  <depend>robot_state_publisher</depend>
+  <depend>xacro</depend>
+  <depend>launch</depend>
+  <depend>launch_ros</depend>
 
   <export>
     <build_type>ament_cmake</build_type>
