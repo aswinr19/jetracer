@@ -28,13 +28,13 @@
     <!-- ================ JOINTS ================ -->
     <xacro:joint joint_name="Back_left_wheel_joint" parent_name="chassis_link" child_name="Back_left_wheel_link" joint_type="continuous" > 
         <origin xyz="-0.07830000000000438 -0.09000000000000409 0.015298850000000884" rpy="3.1415926535897887 -1.5707963267948906 0" />
-        <axis xyz="0.0 -2.303712776096894e-15 1.0" />
+        <axis xyz="0.0 -2.303712776096894e-15 -1.0" />
         <limit/>
     </xacro:joint>
 
     <xacro:joint joint_name="Back_right_wheel_joint" parent_name="chassis_link" child_name="Back_right_wheel_link" joint_type="continuous" > 
         <origin xyz="0.07830000000000423 -0.09000000000000441 0.01529885000000087" rpy="-3.141592653589793 -1.5707963267948906 0" />
-        <axis xyz="0.0 2.1926904736343785e-15 1.0" />
+        <axis xyz="0.0 2.1926904736343785e-15 -1.0" />
         <limit/>
     </xacro:joint>
 
