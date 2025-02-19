@@ -22,9 +22,11 @@
         </link>
     </xacro:macro>
 
+    <link name="base_link" />
+
     <!-- ================ JOINTS ================ -->
-    <!-- base link -->
-    <xacro:links name="base_link" mesh="${base_link_mesh}" material="${base_link_material}" mass="${base_link_mass}">
+    <!-- chassis link -->
+    <xacro:links name="chassis_link" mesh="${chassis_link_mesh}" material="${chassis_link_material}" mass="${chassis_link_mass}">
         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
         <inertial>
             <origin xyz="0.0016533027608847484 0.0033918428429015692 0.03234130593918531" rpy="0.0 0.0 0.0" />
