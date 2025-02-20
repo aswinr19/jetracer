@@ -4,7 +4,7 @@
     <!-- ================= PROPERTIES ================== -->
     <xacro:property name="scale" value="0.001 0.001 0.001" />
     <!-- ==== meshes ==== -->
-    <xacro:property name="base_link_mesh"               value="file://$(find jetracer_description)/meshes/Base_link.stl" />
+    <xacro:property name="chassis_link_mesh"               value="file://$(find jetracer_description)/meshes/Base_link.stl" />
 
     <!-- Rear -->
     <xacro:property name="Back_left_wheel_mesh"         value="file://$(find jetracer_description)/meshes/Back_left_wheel_link.stl" />
@@ -20,7 +20,7 @@
     <xacro:property name="Lidar_mesh"                   value="file://$(find jetracer_description)/meshes/Lidar_link.stl" />
 
     <!-- ==== materials ==== -->
-    <xacro:property name="base_link_material"           value="0.25 0.25 0.25 1" />
+    <xacro:property name="chassis_link_material"           value="0.25 0.25 0.25 1" />
 
     <!-- Rear -->
     <xacro:property name="Back_left_wheel_material"     value="0.5 0.5 0.4 1" />
@@ -36,7 +36,7 @@
     <xacro:property name="Lidar_material"               value="0.5 0.5 0.4 1" />
 
     <!-- ==== mass ==== -->
-    <xacro:property name="base_link_mass"               value="1.176913520449639" />
+    <xacro:property name="chassis_link_mass"               value="1.176913520449639" />
 
     <!-- Rear -->
     <xacro:property name="Back_left_wheel_mass"         value="0.05430175599038289" />

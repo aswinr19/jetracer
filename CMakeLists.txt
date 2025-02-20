@@ -11,21 +11,12 @@ find_package(ament_cmake REQUIRED)
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 
-install(
-    DIRECTORY launch
-    DESTINATION share/${PROJECT_NAME}
-)
-
-
-install(
-    DIRECTORY urdf
-    DESTINATION share/${PROJECT_NAME}
-)
-
-
-install(
-    DIRECTORY meshes 
-    DESTINATION share/${PROJECT_NAME}
+install(DIRECTORY 
+  launch
+  meshes
+  urdf
+  config
+  DESTINATION share/${PROJECT_NAME}
 )
 
 
