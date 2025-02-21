@@ -35,22 +35,6 @@
     
     <xacro:property name="Lidar_material"               value="0.5 0.5 0.4 1" />
 
-    <!-- ==== mass ==== -->
-    <xacro:property name="chassis_link_mass"               value="1.176913520449639" />
-
-    <!-- Rear -->
-    <xacro:property name="Back_left_wheel_mass"         value="0.05430175599038289" />
-    <xacro:property name="Back_right_wheel_mass"        value="0.05430175599038289" />
-
-    <!-- Front -->
-    <xacro:property name="Control_left_wheel_mass"      value="0.0022633439186205465" />
-    <xacro:property name="Front_left_wheel_mass"        value="0.05430175599038289" />
-    
-    <xacro:property name="Control_right_wheel_mass"     value="0.0022633439186205465" />
-    <xacro:property name="Front_right_wheel_mass"       value="0.05430175599038289" />
-
-    <xacro:property name="Lidar_mass"                   value="0.08486622487588467" />
-
     <!-- constants -->
     <xacro:property name="PI" value="3.1415" />
     <xacro:property name="scale" value="0.001 0.001 0.001" />
