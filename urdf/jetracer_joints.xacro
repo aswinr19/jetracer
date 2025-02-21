@@ -27,43 +27,43 @@
 
     <!-- ================ JOINTS ================ -->
     <xacro:joint joint_name="Back_left_wheel_joint" parent_name="chassis_link" child_name="Back_left_wheel_link" joint_type="continuous" > 
-        <origin xyz="-0.07830000000000438 -0.09000000000000409 0.015298850000000884" rpy="3.1415926535897887 -1.5707963267948906 0" />
-        <axis xyz="0.0 -2.303712776096894e-15 -1.0" />
+        <origin xyz="-0.08999999999999997 0.07830000000000013 0.015298849999999503" rpy="1.5707963267949487 -9.036958300754793e-32 -5.096753522204392e-16" />
+        <axis xyz="-2.0095106667766018e-44 5.847752837517865e-14 1.0" />
         <limit/>
     </xacro:joint>
 
     <xacro:joint joint_name="Back_right_wheel_joint" parent_name="chassis_link" child_name="Back_right_wheel_link" joint_type="continuous" > 
-        <origin xyz="0.07830000000000423 -0.09000000000000441 0.01529885000000087" rpy="-3.141592653589793 -1.5707963267948906 0" />
-        <axis xyz="0.0 2.1926904736343785e-15 -1.0" />
+        <origin xyz="-0.09000000000000004 -0.07829999999999988 0.015298850000000502" rpy="1.5707963267948317 -9.036958300754793e-32 -5.096753522204392e-16" />
+        <axis xyz="-2.0095106667766018e-44 -5.848446726908255e-14 1.0" />
         <limit/>
     </xacro:joint>
 
     <xacro:joint joint_name="Control_left_joint" parent_name="chassis_link" child_name="Control_left_wheel_link" joint_type="revolute" > 
-        <origin xyz="-0.06000000000000318 0.06000000000000318 0.025799999999999795" rpy="3.141592653589785 7.762887554995295e-17 -2.0933157334479724e-15" />
-        <axis xyz="1.232595164407831e-32 2.220446049250314e-16 1.0" />
+        <origin xyz="0.060000000000000026 0.060000000000000116 0.02579999999999962" rpy="3.141592653589787 -9.036958300754793e-32 -5.096753522204392e-16" />
+        <axis xyz="0.0 -3.469446951953671e-18 1.0" />
         <limit lower="-${PI/2}" upper="${PI/2}" effort="1000000" velocity="1000000" />
     </xacro:joint>
 
     <xacro:joint joint_name="Front_left_wheel_joint" parent_name="Control_left_wheel_link" child_name="Front_left_wheel_link" joint_type="continuous" > 
-        <origin xyz="-0.005192779999999999 8.140000000009807e-06 0.012000000000000002" rpy="-2.220446049250314e-16 1.2325951644078504e-32 8.712952773709936e-31" />
-        <axis xyz="1.0 0.0 0.0" />
+        <origin xyz="-8.140000000009807e-06 0.005192779999999999 0.012000000000000002" rpy="3.469446951953529e-18 3.944304526105059e-31 2.0096475123297585e-44" />
+        <axis xyz="0.0 -1.0 -3.1672338534784104e-31" />
         <limit/>
     </xacro:joint>
 
     <xacro:joint joint_name="Control_right_joint" parent_name="chassis_link" child_name="Control_right_wheel_link" joint_type="revolute" > 
-        <origin xyz="0.06000000000000339 0.06000000000000293 0.02579999999999979" rpy="3.141592653589785 7.762887554995295e-17 -2.0933157334479724e-15" />
-        <axis xyz="1.232595164407831e-32 2.220446049250314e-16 1.0" />
+        <origin xyz="0.05999999999999998 -0.05999999999999989 0.02580000000000038" rpy="3.141592653589787 -9.036958300754793e-32 -5.096753522204392e-16" />
+        <axis xyz="0.0 -3.469446951953671e-18 1.0" />
         <limit lower="-${PI/2}" upper="${PI/2}" effort="1000000" velocity="1000000" />
     </xacro:joint>
 
     <xacro:joint joint_name="Front_right_wheel_joint" parent_name="Control_right_wheel_link" child_name="Front_right_wheel_link" joint_type="continuous" > 
-        <origin xyz="0.005192779999999999 8.140000000009807e-06 0.012000000000000002" rpy="-2.2204460492503155e-16 1.2325951644078153e-32 -7.064265330710301e-31" />
-        <axis xyz="-1.0 0.0 0.0" />
+        <origin xyz="-8.140000000009807e-06 0.005192779999999999 0.012000000000000002" rpy="3.469446951953529e-18 3.944304526105059e-31 2.0096475123297585e-44" />
+        <axis xyz="0.0 -1.0 -3.1672338534784104e-31" />
         <limit/>
     </xacro:joint>
 
     <xacro:joint joint_name="Lidar_joint" parent_name="chassis_link" child_name="Lidar_link" joint_type="fixed" > 
-        <origin xyz="0.0279999600000016 0.032999950000002144 0.09997548000000103" rpy="3.141592653589785 7.762887554995295e-17 -2.0933157334479724e-15" />
+        <origin xyz="0.032999949999999986 -0.027999959999999404 0.09997548000000019" rpy="3.141592653589787 -9.036958300754793e-32 -5.096753522204392e-16" />
         <axis/>
         <limit/>
     </xacro:joint>
