@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="jetracer">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
     <xacro:macro name="joint" params="joint_name parent_name child_name joint_type *origin *axis *limit">
 
         <xacro:property name="var" value="False"/>

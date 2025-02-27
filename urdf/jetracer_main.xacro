@@ -42,5 +42,6 @@
     <!-- ================= INCLUDES ================== -->
     <xacro:include filename="jetracer_links.xacro"  />
     <xacro:include filename="jetracer_joints.xacro"  />
-    <xacro:include filename="jetracer_sensors.xacro"  />
+    <xacro:include filename="jetracer_controllers.xacro"  />
+    <xacro:include filename="jetracer_sensors.xacro" />
 </robot>
