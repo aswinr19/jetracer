@@ -1,6 +1,9 @@
 <?xml version='1.0' encoding='utf-8' ?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="jetracer">
 
+    <!-- ================= ARGUMENTS  ================== -->
+    <xacro:arg name="namespace" default="jetracer" />
+
     <!-- ================= PROPERTIES ================== -->
     <xacro:property name="scale" value="0.001 0.001 0.001" />
     <!-- ==== meshes ==== -->

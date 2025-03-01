@@ -36,7 +36,15 @@
 
     <gazebo>
         <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
-            <parameters>$(find jetracer_description)/config/jetracer_controller.yaml</parameters>
+            <parameters>$(find jetracer_description)/config/jetracer_controllers.yaml</parameters>
+            <controller_manager_prefix_node_name>$(arg namespace)/controller_manager</controller_manager_prefix_node_name>
+                <ros>
+                    <namespace>$(arg namespace)</namespace>
+                    <remapping>/robot_description:=robot_description</remapping>
+                    <remapping>/clock:=clock</remapping>
+                    <remapping>/tf:=tf</remapping>
+                    <remapping>/tf_static:=tf_static</remapping>
+                </ros>
         </plugin>
   </gazebo>
 </robot>
