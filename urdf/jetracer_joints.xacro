@@ -34,7 +34,7 @@
 
     <xacro:joint joint_name="Back_right_wheel_joint" parent_name="chassis_link" child_name="Back_right_wheel_link" joint_type="continuous" >
         <origin xyz="-0.0900000000000001 -0.0782999999999977 0.015298849999998925" rpy="1.5707963267948317 -1.4594420859336604e-31 -3.8721067230568025e-16" />
-        <axis xyz="-1.4774454646531794e-44 -5.848446726908255e-14 1.0" />
+        <axis xyz="-1.4774454646531794e-44 -5.848446726908255e-14 -1.0" />
         <limit/>
     </xacro:joint>
 
