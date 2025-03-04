@@ -8,6 +8,7 @@ from ament_index_python.packages import get_package_share_directory
 
 from launch.actions import DeclareLaunchArgument
 from launch.substitutions import LaunchConfiguration , PythonExpression , Command
+from launch_ros.parameter_descriptions import ParameterValue
 
 def generate_launch_description():
     
@@ -47,7 +48,7 @@ def generate_launch_description():
             output='screen',
             namespace=robot_namespace,
             parameters=[{
-                'robot_description': jetracer_description,
+                'robot_description': ParameterValue(jetracer_description,value_type=str),
                 'use_sim_time': use_sim_time
             }],
             remappings=[

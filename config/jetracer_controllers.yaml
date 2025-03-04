@@ -24,3 +24,5 @@
     odom_frame_id: odom
     enable_odom_tf: true
     position_feedback: false
+    tf_frame_prefix_enable: false
+
