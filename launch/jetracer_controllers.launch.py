@@ -31,17 +31,20 @@ def generate_launch_description():
     joint_state_broadcaster_spawner = Node(
         package='controller_manager',
         executable='spawner',
-        arguments=['joint_state_broadcaster'],
         namespace=robot_namespace,
+        arguments=['joint_state_broadcaster',
+                    '--switch-timeout', '10',
+        ],
     )
 
     ackermann_steering_controller_spawner = Node(
         package='controller_manager',
         executable='spawner',
+        namespace=robot_namespace,
         arguments=['ackermann_steering_controller',
                    '--param-file',robot_controllers,
+                   '--switch-timeout', '30',
         ],
-        namespace=robot_namespace,
         remappings=[
             ("/ackermann_steering_controller/tf_odometry","tf")
         ]
