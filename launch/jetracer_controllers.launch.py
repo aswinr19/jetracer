@@ -23,7 +23,7 @@ def generate_launch_description():
     use_sim_time = LaunchConfiguration('use_sim_time')
     use_sim_time_arg = DeclareLaunchArgument(
         name='use_sim_time',
-        default_value='false',
+        default_value='true',
         description='[ARG] tells the robot_state_publisher to use the simulation time or just unix timestamp'
     )
 
@@ -35,6 +35,8 @@ def generate_launch_description():
         arguments=['joint_state_broadcaster',
                     '--switch-timeout', '10',
         ],
+        parameters=[{'use_sim_time': use_sim_time}],
+        output='screen',
     )
 
     ackermann_steering_controller_spawner = Node(
@@ -43,14 +45,32 @@ def generate_launch_description():
         namespace=robot_namespace,
         arguments=[
             'ackermann_steering_controller',
-            '--param-file',robot_controllers
-        ]
+            '--param-file',robot_controllers,
+            '--switch-timeout', '30',
+        ],
+        parameters=[{'use_sim_time': use_sim_time}],
+        output='screen',
     )
 
     delayed_ackermann_steering_controller_spawner = TimerAction(
             period=60.0,
             actions=[ackermann_steering_controller_spawner]
-        )
+    )
+
+    # namespace not working fix use namspace in topic
+    source_topic_expression = PythonExpression(["'", robot_namespace, "/ackermann_steering_controller/tf_odometry'"])
+    target_topic_expression = PythonExpression(["'", robot_namespace, "/tf'"])
+    # namespace not working on node
+    topic_relay_node = Node(
+        package='topic_tools',
+        executable='relay',
+        name= PythonExpression(["'", robot_namespace, "_tf_odometry_relay'"]),
+        arguments=[
+            source_topic_expression,
+            target_topic_expression
+        ],
+        output='screen'
+    )
 
     return LaunchDescription([
         use_sim_time_arg,
@@ -59,6 +79,6 @@ def generate_launch_description():
         RegisterEventHandler(
             event_handler=OnProcessExit(
                 target_action=joint_state_broadcaster_spawner,
-                on_exit=[delayed_ackermann_steering_controller_spawner]
-            ))
+                on_exit=[delayed_ackermann_steering_controller_spawner, topic_relay_node]
+        )),
     ])
