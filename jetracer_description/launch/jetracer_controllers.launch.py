@@ -53,21 +53,18 @@ def generate_launch_description():
     )
 
     delayed_ackermann_steering_controller_spawner = TimerAction(
-            period=40.0,
+            period=50.0,
             actions=[ackermann_steering_controller_spawner]
     )
 
-    # namespace not working fix use namspace in topic
-    source_topic_expression = PythonExpression(["'", robot_namespace, "/ackermann_steering_controller/tf_odometry'"])
-    target_topic_expression = PythonExpression(["'", robot_namespace, "/tf'"])
-    # namespace not working on node
     topic_relay_node = Node(
         package='topic_tools',
         executable='relay',
-        name= PythonExpression(["'", robot_namespace, "_tf_odometry_relay'"]),
+        namespace=robot_namespace,
+        name= 'tf_odometry_relay',
         arguments=[
-            source_topic_expression,
-            target_topic_expression
+            'ackermann_steering_controller/tf_odometry',
+            'tf'
         ],
         output='screen'
     )
