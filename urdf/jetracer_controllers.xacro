@@ -2,7 +2,7 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
     <ros2_control name="GazeboSystem" type="system">
         <hardware>
-            <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+            <plugin>ign_ros2_control/IgnitionSystem</plugin>
         </hardware>
         <joint name="Back_left_wheel_joint">
             <command_interface name="velocity" />
@@ -35,8 +35,16 @@
     </ros2_control>
 
     <gazebo>
-        <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
-            <parameters>$(find jetracer_description)/config/jetracer_controller.yaml</parameters>
+        <plugin filename="ign_ros2_control-system" name="ign_ros2_control::IgnitionROS2ControlPlugin">
+            <parameters>$(find jetracer_description)/config/jetracer_controllers.yaml</parameters>
+            <controller_manager_prefix_node_name>$(arg namespace)/controller_manager</controller_manager_prefix_node_name>
+                <ros>
+                    <namespace>$(arg namespace)</namespace>
+                    <remapping>/robot_description:=robot_description</remapping>
+                    <remapping>/clock:=clock</remapping>
+                    <remapping>/tf:=tf</remapping>
+                    <remapping>/tf_static:=tf_static</remapping>
+                </ros>
         </plugin>
   </gazebo>
 </robot>
