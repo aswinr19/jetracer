@@ -6,20 +6,22 @@ from launch_ros.actions import Node
 def generate_launch_description():
 
     # Declare the namespace argument
-    namespace_arg = DeclareLaunchArgument(
+    namespace_argrobot = DeclareLaunchArgument(
         'ns',
         description='Namespace for tf topics'
     )
-    namespace = LaunchConfiguration('ns')
+    namespace_robot = LaunchConfiguration('ns')
 
     return LaunchDescription([
+        namespace_argrobot,
         Node(
             package='rviz2',
             executable='rviz2',
             name='rviz2',
+            namespace=namespace_robot,
             remappings=[
-                ('/tf', PathJoinSubstitution([namespace, 'tf'])),
-                ('/tf_static', PathJoinSubstitution([namespace, 'tf_static'])),
+                ('/tf', 'tf'),
+                ('/tf_static', 'tf_static'),
                 ],
             output='screen'
         )
