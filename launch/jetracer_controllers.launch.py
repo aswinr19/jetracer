@@ -1,6 +1,6 @@
 from launch import LaunchDescription
 from ament_index_python import get_package_share_directory
-from launch.actions import RegisterEventHandler
+from launch.actions import RegisterEventHandler, TimerAction
 from launch.event_handlers import OnProcessExit
 from launch.substitutions import PathJoinSubstitution
 from launch_ros.actions import Node
@@ -41,14 +41,16 @@ def generate_launch_description():
         package='controller_manager',
         executable='spawner',
         namespace=robot_namespace,
-        arguments=['ackermann_steering_controller',
-                   '--param-file',robot_controllers,
-                   '--switch-timeout', '30',
-        ],
-        remappings=[
-            ("/ackermann_steering_controller/tf_odometry","tf")
+        arguments=[
+            'ackermann_steering_controller',
+            '--param-file',robot_controllers
         ]
     )
+
+    delayed_ackermann_steering_controller_spawner = TimerAction(
+            period=60.0,
+            actions=[ackermann_steering_controller_spawner]
+        )
 
     return LaunchDescription([
         use_sim_time_arg,
@@ -57,6 +59,6 @@ def generate_launch_description():
         RegisterEventHandler(
             event_handler=OnProcessExit(
                 target_action=joint_state_broadcaster_spawner,
-                on_exit=[ackermann_steering_controller_spawner]
-            ))        
+                on_exit=[delayed_ackermann_steering_controller_spawner]
+            ))
     ])
