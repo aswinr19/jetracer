@@ -53,7 +53,7 @@ def generate_launch_description():
     )
 
     delayed_ackermann_steering_controller_spawner = TimerAction(
-            period=60.0,
+            period=40.0,
             actions=[ackermann_steering_controller_spawner]
     )
 
