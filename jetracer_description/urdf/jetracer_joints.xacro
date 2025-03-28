@@ -20,10 +20,22 @@
     </xacro:macro>
 
     <joint name="chassis_joint" type="fixed">
-    <origin xyz="0 0 0" rpy="0 0 0" />
-    <parent link="base_link" />
-    <child link="chassis_link" />
-  </joint>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="chassis_link" />
+    </joint>
+
+    <joint name="base_footprint_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="base_footprint" />
+    </joint>
+
+    <joint name="laser_joint" type="fixed">
+        <origin xyz="0.005 0 0.120" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="laser" />
+    </joint>
 
     <!-- ================ JOINTS ================ -->
     <xacro:joint joint_name="Back_left_wheel_joint" parent_name="chassis_link" child_name="Back_left_wheel_link" joint_type="continuous" >

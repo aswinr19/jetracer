@@ -23,6 +23,8 @@
     </xacro:macro>
 
     <link name="base_link" />
+    <link name="base_footprint" />
+    <link name="laser" />
 
     <!-- ================ JOINTS ================ -->
     <!-- chassis link -->

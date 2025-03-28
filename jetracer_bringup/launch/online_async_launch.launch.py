@@ -46,12 +46,13 @@ def generate_launch_description():
         ],
         package='slam_toolbox',
         executable='async_slam_toolbox_node',
+        namespace='test',
         name='slam_toolbox',
         output='screen',
         remappings=[
-                ('/tf', 'test/tf'),
-                ('/tf_static', 'test/tf_static'),
-                ('/scan', 'test/scan')
+                ('/tf', 'tf'),
+                ('/tf_static', 'tf_static'),
+                ('/scan', 'scan')
                 ],
         )
 
