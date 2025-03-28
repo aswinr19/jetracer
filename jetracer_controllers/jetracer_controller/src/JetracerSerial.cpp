@@ -270,12 +270,12 @@ namespace JetracerController {
                     odom.orientation.y = 0.0;
                     odom.orientation.z = yaw;
                     // vel
-                    odom.linear.x = velX/(currentTime-previousTime).seconds();
-                    odom.linear.y = velY/(currentTime-previousTime).seconds();
+                    odom.linear.x = velX/((currentTime-previousTime).seconds());
+                    odom.linear.y = velY/((currentTime-previousTime).seconds());
                     odom.linear.z = 0.0;
                     odom.angular.x = 0.0;
                     odom.angular.y = 0.0;
-                    odom.angular.z = velYaw/(currentTime-previousTime).seconds();
+                    odom.angular.z = velYaw/((currentTime-previousTime).seconds());
                     odom_mutex.unlock();
 
                     // motor data if available
