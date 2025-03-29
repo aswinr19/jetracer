@@ -17,10 +17,10 @@ namespace JetracerController {
         this->declare_parameter<int>("kd", 0);
         this->declare_parameter<double>("linear_correction", 0.0);
         this->declare_parameter<int>("servo_bias", 0);
-        this->declare_parameter<float>("a", 0);
-        this->declare_parameter<float>("b", 0);
-        this->declare_parameter<float>("c", 0);
-        this->declare_parameter<float>("d", 0);
+        this->declare_parameter<double>("a", 0);
+        this->declare_parameter<double>("b", 0);
+        this->declare_parameter<double>("c", 0);
+        this->declare_parameter<double>("d", 0);
         this->declare_parameter<bool>("mock", true);
 
         // create subscriber
@@ -29,16 +29,16 @@ namespace JetracerController {
         // create jetson interface
         JetracerCreateInfo create_info;
         create_info.serial_port = this->get_parameter("serial_port").as_string();
-        create_info.baud_rate = this->get_parameter("baud_rate").as_int();
-        create_info.kp = this->get_parameter("kp").as_int();
-        create_info.ki = this->get_parameter("ki").as_int();
-        create_info.kd = this->get_parameter("kd").as_int();
+        create_info.baud_rate =  static_cast<int>(this->get_parameter("baud_rate").as_int());
+        create_info.kp = static_cast<int>(this->get_parameter("kp").as_int());
+        create_info.ki = static_cast<int>(this->get_parameter("ki").as_int());
+        create_info.kd = static_cast<int>(this->get_parameter("kd").as_int());
         create_info.linear_correction = this->get_parameter("linear_correction").as_double();
-        create_info.servo_bias = this->get_parameter("servo_bias").as_int();
-        create_info.a = this->get_parameter("a").as_double();
-        create_info.b = this->get_parameter("b").as_double();
-        create_info.c = this->get_parameter("c").as_double();
-        create_info.d = this->get_parameter("d").as_double();
+        create_info.servo_bias = static_cast<int>(this->get_parameter("servo_bias").as_int());
+        create_info.a = static_cast<float>(this->get_parameter("a").as_double());
+        create_info.b = static_cast<float>(this->get_parameter("b").as_double());
+        create_info.c = static_cast<float>(this->get_parameter("c").as_double());
+        create_info.d = static_cast<float>(this->get_parameter("d").as_double());
 
         bool mock = this->get_parameter("mock").as_bool();
         if (mock) {
