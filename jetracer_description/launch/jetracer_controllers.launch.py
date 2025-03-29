@@ -52,11 +52,6 @@ def generate_launch_description():
         output='screen',
     )
 
-    delayed_ackermann_steering_controller_spawner = TimerAction(
-            period=50.0,
-            actions=[ackermann_steering_controller_spawner]
-    )
-
     topic_relay_node = Node(
         package='topic_tools',
         executable='relay',
@@ -76,6 +71,6 @@ def generate_launch_description():
         RegisterEventHandler(
             event_handler=OnProcessExit(
                 target_action=joint_state_broadcaster_spawner,
-                on_exit=[delayed_ackermann_steering_controller_spawner, topic_relay_node]
+                on_exit=[ackermann_steering_controller_spawner, topic_relay_node]
         )),
     ])
