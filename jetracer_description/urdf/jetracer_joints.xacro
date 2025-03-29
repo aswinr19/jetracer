@@ -52,8 +52,8 @@
 
     <xacro:joint joint_name="Control_left_joint" parent_name="chassis_link" child_name="Control_left_wheel_link" joint_type="revolute" >
         <origin xyz="0.059999999999999956 0.060000000000002274 0.025799999999998047" rpy="3.141592653589787 -1.4594420859336604e-31 -3.8721067230568025e-16" />
-        <axis xyz="0.0 -3.469446951953726e-18 1.0" />
-        <limit lower="-${PI/2}" upper="${PI/2}" effort="1000000" velocity="1000000" />
+        <axis xyz="0.0 0.0 -1.0" />
+        <limit lower="-${PI/4}" upper="${PI/4}" effort="1000000" velocity="1000000" />
     </xacro:joint>
 
     <xacro:joint joint_name="Front_left_wheel_joint" parent_name="Control_left_wheel_link" child_name="Front_left_wheel_link" joint_type="continuous" >
@@ -64,8 +64,8 @@
 
     <xacro:joint joint_name="Control_right_joint" parent_name="chassis_link" child_name="Control_right_wheel_link" joint_type="revolute" >
         <origin xyz="0.059999999999999915 -0.05999999999999773 0.02579999999999881" rpy="3.141592653589787 -1.4594420859336604e-31 -3.8721067230568025e-16" />
-        <axis xyz="0.0 -3.469446951953726e-18 1.0" />
-        <limit lower="-${PI/2}" upper="${PI/2}" effort="1000000" velocity="1000000" />
+        <axis xyz="0.0 0.0 -1.0" />
+        <limit lower="-${PI/4}" upper="${PI/4}" effort="1000000" velocity="1000000" />
     </xacro:joint>
 
     <xacro:joint joint_name="Front_right_wheel_joint" parent_name="Control_right_wheel_link" child_name="Front_right_wheel_link" joint_type="continuous" >

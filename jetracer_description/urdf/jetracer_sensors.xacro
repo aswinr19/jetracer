@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <gazebo reference="Lidar_link">
+    <gazebo reference="laser">
         <material>Gazebo/Red</material>
 
         <sensor name="laser" type="gpu_lidar">
@@ -22,7 +22,7 @@
                 </range>
             </lidar>
             <topic>scan</topic>
-            <gz_frame_id>Lidar_link</gz_frame_id>
+            <gz_frame_id>laser</gz_frame_id>
         </sensor>
     </gazebo>
 
