@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8' ?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <xacro:macro name="links" params="name mesh material *origin *inertial">
+    <xacro:macro name="links" params="name mesh material *origin *collision *inertial">
         <link name="${name}">
             <visual name="${name}_visual">
                 <xacro:insert_block name="origin" />
@@ -12,12 +12,22 @@
                     <color rgba="${material}" />
                 </material>
             </visual>
-            <collision name="${name}_collision">
+            <xacro:insert_block name="collision"/>
+            <xacro:insert_block name="inertial" />
+        </link>
+    </xacro:macro>
+
+    <xacro:macro name="links_no_collision" params="name mesh material *origin *inertial">
+        <link name="${name}">
+            <visual name="${name}_visual">
                 <xacro:insert_block name="origin" />
                 <geometry>
                     <mesh filename="${mesh}" scale="${scale}" />
                 </geometry>
-            </collision>
+                <material name="${name}_material">
+                    <color rgba="${material}" />
+                </material>
+            </visual>
             <xacro:insert_block name="inertial" />
         </link>
     </xacro:macro>
@@ -28,238 +38,174 @@
 
     <!-- ================ JOINTS ================ -->
     <!-- chassis link -->
-    <xacro:links
-        name="chassis_link"
-        mesh="${chassis_link_mesh}"
-        material="${chassis_link_material}"
-    >
-        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
-        <inertial>
-            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
-            <mass value="1.1691869669622004" />
-            <inertia
-                ixx="0.0016985538990736126"
-                iyy="0.004643646847817014"
-                izz="0.004914083439210598"
-                ixy="-2.1598217488998493e-05"
-                iyz="6.408477724474828e-05"
-                ixz="0.00037447818172130085"
+    <xacro:links name="chassis_link" mesh="${chassis_link_mesh}" material="${chassis_link_material}">
+        <origin 
+            xyz="0.0 0.0 0.0" 
+            rpy="0.0 0.0 0.0" 
+        />
+
+        <collision name="chassis_link_collision">
+            <origin 
+                xyz="0.0025 0.0 0.03748774" 
+                rpy="0.0 0.0 0.0"
             />
+            <geometry>
+                <box size="0.235 0.1172 0.07497548"/>
+            </geometry>
+        </collision>
+
+        <inertial>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <mass value="1.1691869669622004" />
+            <inertia ixx="0.0016985538990736126" iyy="0.004643646847817014" izz="0.004914083439210598" ixy="-2.1598217488998493e-05" iyz="6.408477724474828e-05" ixz="0.00037447818172130085" />
         </inertial>
     </xacro:links>
 
     <!-- Rear left wheel link -->
-    <xacro:links
-        name="Back_left_wheel_link"
-        mesh="${Back_left_wheel_mesh}"
-        material="${Back_left_wheel_material}"
-    >
+    <xacro:links name="Back_left_wheel_link" mesh="${Back_left_wheel_mesh}" material="${Back_left_wheel_material}">
         <origin
             xyz="-2.486899575160351e-16 8.368400861158421e-11 -1.8118839761882555e-15"
             rpy="6.413861609175051e-14 2.9122543710783113e-15 2.116368867342585e-28"
         />
+
+        <collision name="Back_left_collision">
+            <origin 
+                xyz="0 0 0.004" 
+                rpy="0 0 0"
+            />
+            <geometry>
+                <cylinder radius="0.032" length="0.029"/>
+            </geometry>
+        </collision>
+
         <inertial>
-            <origin
-                xyz="2.930563346486892e-05 -0.000428582482479225 0.0022227850784134516"
-                rpy="0.0 -0.0 0.0"
-            />
+            <origin xyz="2.930563346486892e-05 -0.000428582482479225 0.0022227850784134516" rpy="0.0 -0.0 0.0"/>
             <mass value="0.054301755990382804" />
-            <inertia
-                ixx="1.8750879631248586e-05"
-                iyy="1.8777013070599494e-05"
-                izz="3.0157352809618708e-05"
-                ixy="-2.0185746688392145e-09"
-                iyz="2.5074262711716894e-08"
-                ixz="-1.7150871619176639e-09"
-            />
+            <inertia ixx="1.8750879631248586e-05" iyy="1.8777013070599494e-05" izz="3.0157352809618708e-05" ixy="-2.0185746688392145e-09" iyz="2.5074262711716894e-08" ixz="-1.7150871619176639e-09" />
         </inertial>
     </xacro:links>
 
     <!-- Rear right wheel link -->
-    <xacro:links
-        name="Back_right_wheel_link"
-        mesh="${Back_right_wheel_link}"
-        material="${Back_right_wheel_material}"
-    >
+    <xacro:links name="Back_right_wheel_link" mesh="${Back_right_wheel_link}" material="${Back_right_wheel_material}" >
         <origin
             xyz="-1.7763568394002506e-16 -8.368500337141427e-11 2.3803181647963358e-15"
             rpy="7.311237941014883e-15 2.488315143520874e-15 3.834643568612533e-29"
         />
+
+        <collision name="Back_right_collision">
+            <origin 
+                xyz="0 0 0.004" 
+                rpy="0 0 0"
+            />
+            <geometry>
+                <cylinder radius="0.032" length="0.029"/>
+            </geometry>
+        </collision>
+
         <inertial>
-            <origin
-                xyz="2.93056334649755e-05 -0.0004285826498480705 0.0022227850784176974"
-                rpy="0.0 -0.0 0.0"
-            />
+            <origin xyz="2.93056334649755e-05 -0.0004285826498480705 0.0022227850784176974" rpy="0.0 -0.0 0.0" />
             <mass value="0.05430175599038278" />
-            <inertia
-                ixx="1.875087963124772e-05"
-                iyy="1.8777013070598626e-05"
-                izz="3.0157352809619142e-05"
-                ixy="-2.0185746689610867e-09"
-                iyz="2.5074262712379465e-08"
-                ixz="-1.7150871619892508e-09"
-            />
+            <inertia ixx="1.875087963124772e-05" iyy="1.8777013070598626e-05" izz="3.0157352809619142e-05" ixy="-2.0185746689610867e-09" iyz="2.5074262712379465e-08" ixz="-1.7150871619892508e-09" />
         </inertial>
     </xacro:links>
 
     <!-- Front left control link -->
-    <xacro:links
-        name="Control_left_wheel_link"
-        mesh="${Control_left_wheel_link}"
-        material="${Control_left_wheel_material}"
-    >
+    <xacro:links_no_collision name="Control_left_wheel_link" mesh="${Control_left_wheel_link}" material="${Control_left_wheel_material}">
         <origin
             xyz="-8.136428598213286e-06 -0.013692779328304639 0.011999999999997783"
             rpy="1.570796326794897 1.5707963267948903 0"
         />
+
         <inertial>
-            <origin
-                xyz="0.005314784577471432 -0.0033095632503662743 0.012000000272430367"
-                rpy="0.0 -0.0 0.0"
-            />
+            <origin xyz="0.005314784577471432 -0.0033095632503662743 0.012000000272430367" rpy="0.0 -0.0 0.0" />
             <mass value="0.0022633439186205456" />
-            <inertia
-                ixx="1.1982252143944404e-07"
-                iyy="2.3321617796315722e-07"
-                izz="2.609982653239474e-07"
-                ixy="-7.5885585468173e-08"
-                iyz="-6.531708057967177e-16"
-                ixz="5.316366267672132e-15"
-            />
+            <inertia ixx="1.1982252143944404e-07" iyy="2.3321617796315722e-07" izz="2.609982653239474e-07" ixy="-7.5885585468173e-08" iyz="-6.531708057967177e-16" ixz="5.316366267672132e-15" />
         </inertial>
-    </xacro:links>
+    </xacro:links_no_collision>
 
     <!-- Front left wheel link -->
-    <xacro:links
-        name="Front_left_wheel_link"
-        mesh="${Front_left_wheel_mesh}"
-        material="${Front_left_wheel_material}"
-    >
-        <origin
-            xyz="3.5714013080223594e-09 -0.013106999328304383 -2.0050627824730326e-15"
-            rpy="1.570796326794896 1.5707963267948843 0"
+    <xacro:links name="Front_left_wheel_link" mesh="${Front_left_wheel_mesh}" material="${Front_left_wheel_material}">
+        <origin 
+            xyz="3.5714013080223594e-09 -0.013106999328304383 -2.0050627824730326e-15" 
+            rpy="1.570796326794896 0 0"
         />
+
+        <collision name="Front_left_collision">
+            <origin 
+                xyz="0 -0.0165 0" 
+                rpy="-${pi/2} 0 0"
+            />
+            <geometry>
+                <cylinder radius="0.032" length="0.029"/>
+            </geometry>
+        </collision>
+
         <inertial>
-            <origin
-                xyz="-0.00042857899476183013 -0.015329784406719754 -2.930563346712267e-05"
-                rpy="0.0 -0.0 1.4597325655614851e-62"
-            />
+            <origin xyz="-0.00042857899476183013 -0.015329784406719754 -2.930563346712267e-05" rpy="0.0 -0.0 1.4597325655614851e-62" />
             <mass value="0.05430175599038286" />
-            <inertia
-                ixx="1.877701307059689e-05"
-                iyy="3.0157352809619223e-05"
-                izz="1.8750879631245117e-05"
-                ixy="-2.5074262712584255e-08"
-                iyz="-1.7150871617550335e-09"
-                ixz="2.0185746688392145e-09"
-            />
+            <inertia ixx="1.877701307059689e-05" iyy="3.0157352809619223e-05" izz="1.8750879631245117e-05" ixy="-2.5074262712584255e-08" iyz="-1.7150871617550335e-09" ixz="2.0185746688392145e-09"/>
         </inertial>
     </xacro:links>
 
     <!-- Front right control link -->
-    <xacro:links
-        name="Control_right_wheel_link"
-        mesh="${Control_right_wheel_link}"
-        material="${Control_right_wheel_material}"
-    >
-        <origin
+    <xacro:links_no_collision name="Control_right_wheel_link" mesh="${Control_right_wheel_link}" material="${Control_right_wheel_material}">
+        <origin 
             xyz="-8.136428598497503e-06 0.013692779328307196 0.011999999999998732"
             rpy="-1.570796326794897 -1.5707963267948903 0"
         />
         <inertial>
-            <origin
-                xyz="0.005314784577471485 0.0033095632503688677 0.011999999727566124"
-                rpy="0.0 -0.0 0.0"
-            />
+            <origin xyz="0.005314784577471485 0.0033095632503688677 0.011999999727566124" rpy="0.0 -0.0 0.0" />
             <mass value="0.0022633439186205456" />
-            <inertia
-                ixx="1.1982252143934917e-07"
-                iyy="2.3321617796315552e-07"
-                izz="2.6099826532390675e-07"
-                ixy="7.588558546818994e-08"
-                iyz="-6.531691454307929e-16"
-                ixz="-5.316368438466389e-15"
-            />
+            <inertia ixx="1.1982252143934917e-07" iyy="2.3321617796315552e-07" izz="2.6099826532390675e-07" ixy="7.588558546818994e-08" iyz="-6.531691454307929e-16" ixz="-5.316368438466389e-15"/>
         </inertial>
-    </xacro:links>
+    </xacro:links_no_collision>
 
     <!-- Front right wheel link -->
-    <xacro:links
-        name="Front_right_wheel_link"
-        mesh="${Front_right_wheel_link}"
-        material="${Front_right_wheel_material}"
-    >
+    <xacro:links name="Front_right_wheel_link" mesh="${Front_right_wheel_link}" material="${Front_right_wheel_material}">
         <origin
             xyz="3.5714013879584174e-09 0.013106999328307153 -1.7341683644644946e-15"
             rpy="-1.5707963267949039 1.5707963267948957 0"
         />
+
+        <collision name="Front_right_collision">
+            <origin 
+                xyz="0 0.0165 0" 
+                rpy="${pi/2} 0 0"
+            />
+            <geometry>
+                <cylinder radius="0.032" length="0.029"/>
+            </geometry>
+        </collision>
+
         <inertial>
-            <origin
-                xyz="0.00042858613756447284 0.015329784406722453 -2.930563346686954e-05"
-                rpy="0.0 -0.0 0.0"
-            />
+            <origin xyz="0.00042858613756447284 0.015329784406722453 -2.930563346686954e-05" rpy="0.0 -0.0 0.0"/>
             <mass value="0.05430175599038282" />
-            <inertia
-                ixx="1.8777013070598843e-05"
-                iyy="3.0157352809619142e-05"
-                izz="1.8750879631247936e-05"
-                ixy="-2.5074262712584255e-08"
-                iyz="1.715087161971874e-09"
-                ixz="-2.0185746688459907e-09"
-            />
+            <inertia ixx="1.8777013070598843e-05" iyy="3.0157352809619142e-05" izz="1.8750879631247936e-05" ixy="-2.5074262712584255e-08" iyz="1.715087161971874e-09" ixz="-2.0185746688459907e-09"/>
         </inertial>
     </xacro:links>
 
     <!-- Lidar link -->
-    <xacro:links
-        name="Lidar_link"
-        mesh="${Lidar_mesh}"
-        material="${Lidar_material}"
-    >
+    <xacro:links_no_collision name="Lidar_link" mesh="${Lidar_mesh}" material="${Lidar_material}">
         <origin
             xyz="-0.07349999799999625 -0.028000004399996004 -0.009200000000001455"
             rpy="3.1415926535897225 -1.9361817928818287e-15 3.1415926535897927"
         />
         <inertial>
-            <origin
-                xyz="-0.050918484442552744 -0.028239426420143127 6.461931577627312e-05"
-                rpy="0.0 -0.0 0.0"
-            />
+            <origin xyz="-0.050918484442552744 -0.028239426420143127 6.461931577627312e-05" rpy="0.0 -0.0 0.0"/>
             <mass value="0.08486622487588467" />
-            <inertia
-                ixx="2.7441257171710587e-05"
-                iyy="7.212810687965495e-05"
-                izz="8.07747226156683e-05"
-                ixy="7.125364902921759e-07"
-                iyz="-3.680051842555253e-07"
-                ixz="1.2837113244875167e-05"
-            />
+            <inertia ixx="2.7441257171710587e-05" iyy="7.212810687965495e-05" izz="8.07747226156683e-05" ixy="7.125364902921759e-07" iyz="-3.680051842555253e-07" ixz="1.2837113244875167e-05"/>
         </inertial>
-    </xacro:links>
+    </xacro:links_no_collision>
 
-    <xacro:links
-        name="Camera_link"
-        mesh="${Camera_mesh}"
-        material="${Camera_material}"
-    >
+    <xacro:links_no_collision name="Camera_link" mesh="${Camera_mesh}" material="${Camera_material}">
         <origin
             xyz="0.0049999959182071676 -0.00319999685272796 -0.014299990434673546"
             rpy="-1.5707963267948897 6.455673410932649e-14 4.110951392333017e-28"
         />
         <inertial>
-            <origin
-                xyz="0.009437076326469703 -0.00214409346072566 -0.014385412303800145"
-                rpy="0.0 -0.0 0.0"
-            />
+            <origin xyz="0.009437076326469703 -0.00214409346072566 -0.014385412303800145" rpy="0.0 -0.0 0.0"/>
             <mass value="0.007726553487439356" />
-            <inertia
-                ixx="7.268716244665518e-07"
-                iyy="7.070297059504462e-07"
-                izz="6.032871415961253e-07"
-                ixy="-5.27821034369442e-08"
-                iyz="8.56540756914324e-10"
-                ixz="4.390662029237586e-09"
-            />
+            <inertia ixx="7.268716244665518e-07" iyy="7.070297059504462e-07" izz="6.032871415961253e-07" ixy="-5.27821034369442e-08" iyz="8.56540756914324e-10" ixz="4.390662029237586e-09"/>
         </inertial>
-    </xacro:links>
+    </xacro:links_no_collision>
 </robot>
