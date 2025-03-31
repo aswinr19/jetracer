@@ -27,7 +27,6 @@ def generate_launch_description():
         description='[ARG] tells the robot_state_publisher to use the simulation time or just unix timestamp'
     )
 
-
     joint_state_broadcaster_spawner = Node(
         package='controller_manager',
         executable='spawner',

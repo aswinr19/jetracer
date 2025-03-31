@@ -3,8 +3,7 @@ Panels:
     Help Height: 78
     Name: Displays
     Property Tree Widget:
-      Expanded:
-        - /Camera1
+      Expanded: ~
       Splitter Ratio: 0.5
     Tree Height: 499
   - Class: rviz_common/Selection
@@ -113,6 +112,8 @@ Visualization Manager:
           Value: true
         laser:
           Value: true
+        map:
+          Value: true
         odom:
           Value: true
       Marker Scale: 0.20000000298023224
@@ -121,29 +122,30 @@ Visualization Manager:
       Show Axes: true
       Show Names: false
       Tree:
-        odom:
-          base_link:
-            base_footprint:
-              {}
-            chassis_link:
-              Back_left_wheel_link:
+        map:
+          odom:
+            base_link:
+              base_footprint:
                 {}
-              Back_right_wheel_link:
-                {}
-              Camera_link:
-                camera_link:
-                  camera_link_optical:
+              chassis_link:
+                Back_left_wheel_link:
+                  {}
+                Back_right_wheel_link:
+                  {}
+                Camera_link:
+                  camera_link:
+                    camera_link_optical:
+                      {}
+                Control_left_wheel_link:
+                  Front_left_wheel_link:
                     {}
-              Control_left_wheel_link:
-                Front_left_wheel_link:
+                Control_right_wheel_link:
+                  Front_right_wheel_link:
+                    {}
+                Lidar_link:
                   {}
-              Control_right_wheel_link:
-                Front_right_wheel_link:
-                  {}
-              Lidar_link:
+              laser:
                 {}
-            laser:
-              {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -253,14 +255,36 @@ Visualization Manager:
       Visibility:
         Grid: false
         LaserScan: false
+        Map: true
         RobotModel: false
         TF: false
         Value: true
       Zoom Factor: 1
+    - Alpha: 0.699999988079071
+      Class: rviz_default_plugins/Map
+      Color Scheme: map
+      Draw Behind: false
+      Enabled: true
+      Name: Map
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        Filter size: 10
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: map
+      Update Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: map_updates
+      Use Timestamp: false
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
-    Fixed Frame: odom
+    Fixed Frame: map
     Frame Rate: 30
   Name: root
   Tools:
@@ -303,7 +327,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 5.301648139953613
+      Distance: 2.198458194732666
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -318,10 +342,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.6047974824905396
+      Pitch: 0.39979681372642517
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 4.270399570465088
+      Yaw: 4.090385437011719
     Saved: ~
 Window Geometry:
   Camera:
