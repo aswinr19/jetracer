@@ -16,7 +16,7 @@ def generate_launch_description():
         default_value='false',
         description='Use simulation/Gazebo clock')
     namespace_robot = LaunchConfiguration('ns')
-    namespace_argrobot = DeclareLaunchArgument(
+    namespace_arg = DeclareLaunchArgument(
         'ns',
         description='Namespace of robot'
     )
@@ -45,7 +45,7 @@ def generate_launch_description():
         )
 
     return LaunchDescription([
-        namespace_argrobot,
+        namespace_arg,
         use_sim_time_argument,
         start_async_slam_toolbox_node
     ])
