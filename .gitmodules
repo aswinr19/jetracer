@@ -1,0 +1,4 @@
+[submodule "jetracer_controllers/rplidar_ros"]
+	path = jetracer_controllers/rplidar_ros
+	url = https://github.com/Slamtec/rplidar_ros.git
+	branch = ros2

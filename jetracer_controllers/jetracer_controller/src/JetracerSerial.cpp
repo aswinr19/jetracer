@@ -89,13 +89,13 @@ namespace JetracerController {
             tmp[1] = HEAD2;
             tmp[2] = 0x0b;
             tmp[3] = SEND_TYPE_VELOCITY;
-            tmp[4] = ((int16_t)(x * 1000) >> 8) & 0xff;
-            tmp[5] = ((int16_t)(x * 1000)) & 0xff;
-            tmp[6] = ((int16_t)(y * 1000) >> 8) & 0xff;
-            tmp[7] = ((int16_t)(y * 1000)) & 0xff;
-            tmp[8] = ((int16_t)(yaw * 1000) >> 8) & 0xff;
-            tmp[9] = ((int16_t)(yaw * 1000)) & 0xff;
-            tmp[10] = checksum(tmp, 10);
+            tmp[4] = ((int16_t)(x*1000)>>8) & 0xff;
+            tmp[5] = ((int16_t)(x*1000)) & 0xff;
+            tmp[6] = ((int16_t)(y*1000)>>8) & 0xff;
+            tmp[7] = ((int16_t)(y*1000)) & 0xff;
+            tmp[8] = ((int16_t)(yaw*1000)>>8) & 0xff;
+            tmp[9] = ((int16_t)(yaw*1000)) & 0xff;
+            tmp[10] = checksum(tmp,10);
             write(sp, boost::asio::buffer(tmp, 11));
         }
         catch (const std::exception& e) {
@@ -107,8 +107,9 @@ namespace JetracerController {
 
     uint8_t JetracerSerial::checksum(uint8_t* buf, size_t len) {
         uint8_t sum = 0x00;
-        for (size_t i = 0; i < len; i++)
+        for(size_t i=0;i<len;i++) {
             sum += *(buf + i);
+        }
         return sum;
     }
 
@@ -270,12 +271,12 @@ namespace JetracerController {
                     odom.orientation.y = 0.0;
                     odom.orientation.z = yaw;
                     // vel
-                    odom.linear.x = velX/(currentTime-previousTime).seconds();
-                    odom.linear.y = velY/(currentTime-previousTime).seconds();
+                    odom.linear.x = velX/((currentTime-previousTime).seconds());
+                    odom.linear.y = velY/((currentTime-previousTime).seconds());
                     odom.linear.z = 0.0;
                     odom.angular.x = 0.0;
                     odom.angular.y = 0.0;
-                    odom.angular.z = velYaw/(currentTime-previousTime).seconds();
+                    odom.angular.z = velYaw/((currentTime-previousTime).seconds());
                     odom_mutex.unlock();
 
                     // motor data if available
