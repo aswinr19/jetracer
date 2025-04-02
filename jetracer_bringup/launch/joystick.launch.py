@@ -51,17 +51,7 @@ def generate_launch_description():
             executable='teleop_node',
             name='teleop_node',
             namespace=robot_namespace,
-            parameters=[joy_params, {'use_sim_time': use_sim_time}],
-            remappings=[('cmd_vel','cmd_vel_unstamped')]
-         )
-
-    twist_stamper = Node(
-            package='twist_stamper',
-            executable='twist_stamper',
-            namespace=robot_namespace,
-            parameters=[{'use_sim_time': use_sim_time}],
-            remappings=[('cmd_vel_in','cmd_vel_unstamped'),
-                        ('cmd_vel_out', 'ackermann_steering_controller/reference')]
+            parameters=[joy_params, {'use_sim_time': use_sim_time}]
          )
 
     return LaunchDescription([
@@ -69,6 +59,5 @@ def generate_launch_description():
         use_sim_time_arg,
         controller_arg,
         joy_node,
-        teleop_node,
-        twist_stamper,
+        teleop_node
     ])
