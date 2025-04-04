@@ -5,11 +5,9 @@ from launch.actions import DeclareLaunchArgument
 from launch_ros.substitutions import FindPackageShare
 
 def generate_launch_description():
-    use_sim_time = LaunchConfiguration('use_sim_time')
     robot_namespace = LaunchConfiguration('ns')
     controller = LaunchConfiguration("controller")
 
-    # Use PathJoinSubstitution with TextSubstitution for proper string composition
     joy_params = PathJoinSubstitution([
         FindPackageShare('jetracer_bringup'),
         'config',
@@ -22,15 +20,14 @@ def generate_launch_description():
         ])
     ])
 
+    twist_mux_params = PathJoinSubstitution([
+        FindPackageShare('jetracer_bringup'),
+        'config/twist_mutx.yaml'
+    ])
+
     namespace_arg = DeclareLaunchArgument(
         name='ns',
         description='namespace of robot',
-    )
-
-    use_sim_time_arg = DeclareLaunchArgument(
-        'use_sim_time',
-        default_value='true',
-        description='Use sim time if true'
     )
 
     controller_arg = DeclareLaunchArgument(
@@ -43,7 +40,7 @@ def generate_launch_description():
             package='joy',
             executable='joy_node',
             namespace=robot_namespace,
-            parameters=[joy_params, {'use_sim_time': use_sim_time}],
+            parameters=[joy_params],
          )
 
     teleop_node = Node(
@@ -51,13 +48,22 @@ def generate_launch_description():
             executable='teleop_node',
             name='teleop_node',
             namespace=robot_namespace,
-            parameters=[joy_params, {'use_sim_time': use_sim_time}]
+            parameters=[joy_params],
+            remappings=[('cmd_vel','cmd_vel_joy')]
          )
+    
+    twist_mux = Node(
+        package='twist_mux',
+        executable='twist_mux',
+        namespace=robot_namespace,
+        parameters=[twist_mux_params],
+        remappings=[('cmd_vel_out','cmd_vel_unstamped')]
+    )
 
     return LaunchDescription([
         namespace_arg,
-        use_sim_time_arg,
         controller_arg,
         joy_node,
-        teleop_node
+        teleop_node,
+        twist_mux
     ])
