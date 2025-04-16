@@ -22,6 +22,7 @@ from launch.conditions import IfCondition
 from launch.substitutions import LaunchConfiguration, PythonExpression
 from launch_ros.actions import LoadComposableNodes
 from launch_ros.actions import Node
+from launch_ros.actions import PushRosNamespace
 from launch_ros.descriptions import ComposableNode, ParameterFile
 from nav2_common.launch import RewrittenYaml
 
@@ -30,7 +31,7 @@ def generate_launch_description():
     # Get the launch directory
     bringup_dir = get_package_share_directory('jetracer_bringup')
 
-    namespace = LaunchConfiguration('ns')
+    namespace = LaunchConfiguration('namespace')
     use_sim_time = LaunchConfiguration('use_sim_time')
     autostart = LaunchConfiguration('autostart')
     params_file = LaunchConfiguration('params_file')
@@ -55,7 +56,9 @@ def generate_launch_description():
     # TODO(orduno) Substitute with `PushNodeRemapping`
     #              https://github.com/ros2/launch_ros/issues/56
     remappings = [('/tf', 'tf'),
-                  ('/tf_static', 'tf_static')]
+                  ('/tf_static', 'tf_static'),
+                  ('/map' , 'map'),
+                  ('/local_costmap', 'local_costmap')]
 
     # Create our own temporary YAML files that include substitutions
     param_substitutions = {
@@ -74,7 +77,7 @@ def generate_launch_description():
         'RCUTILS_LOGGING_BUFFERED_STREAM', '1')
 
     declare_namespace_cmd = DeclareLaunchArgument(
-        'ns',
+        'namespace',
         default_value='',
         description='Top-level namespace')
 
@@ -109,8 +112,8 @@ def generate_launch_description():
         description='log level')
 
     load_nodes = GroupAction(
-        condition=IfCondition(PythonExpression(['not ', use_composition])),
         actions=[
+            PushRosNamespace(namespace),
             Node(
                 package='nav2_controller',
                 executable='controller_server',
