@@ -59,7 +59,8 @@ def generate_launch_description():
                   ('/tf_static', 'tf_static'),
                   ('/map' , 'map'),
                   ('/local_costmap', 'local_costmap'),
-                  ('/trajectories', 'trajectories')]
+                  ('/trajectories', 'trajectories'),
+                  ('/unsmoothed_path', 'unsmoothed_path')]
 
     # Create our own temporary YAML files that include substitutions
     param_substitutions = {

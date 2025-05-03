@@ -48,7 +48,10 @@ def generate_launch_description():
                 ('/slam_toolbox/serialize_map', 'slam_toolbox/serialize_map'),
                 ('/slam_toolbox/set_parameters', 'slam_toolbox/set_parameters'),
                 ('/slam_toolbox/set_parameters_atomically', 'slam_toolbox/set_parameters_atomically'),
-                ('/slam_toolbox/toggle_interactive_mode', 'slam_toolbox/toggle_interactive_mode')
+                ('/slam_toolbox/toggle_interactive_mode', 'slam_toolbox/toggle_interactive_mode'),
+                ('/goal_pose', 'goal_pose'),
+                ('/initialpose', 'initialpose'),
+                ('/clicked_point', 'clicked_point')
                 ],
             output='screen',
             arguments=[

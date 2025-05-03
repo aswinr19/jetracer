@@ -23,8 +23,13 @@ def generate_launch_description():
         'launch',
         'jetracer_description.launch.py'
     )
+    rplidar_launch_file_phat = os.path.join(
+        get_package_share_directory('jetracer_bringup'),
+        'launch',
+        'rplidar_a1_launch.py'
+    )
 
-    controller_launch_desc = IncludeLaunchDescription(
+    joystick_launch_desc = IncludeLaunchDescription(
         launch_description_source=PythonLaunchDescriptionSource([joystick_launch_file_phat]),
         launch_arguments=[
             ['controller', 'robot'],
@@ -37,6 +42,18 @@ def generate_launch_description():
         launch_arguments=[
             ['ns', robot_namespace],
             ['sim', 'false']
+        ]
+    )
+
+    rplidar_launch_desc = IncludeLaunchDescription(
+        launch_description_source=PythonLaunchDescriptionSource([rplidar_launch_file_phat]),
+        launch_arguments=[
+            ['ns', robot_namespace],
+            ['serial_baudrate', '/dev/ttyACM1'],
+            ['serial_baudrate', '115200'],
+            ['frame_id', 'laser'],
+            ['inverted', 'false'],
+            ['angle_compensate', 'true']
         ]
     )
 
@@ -57,6 +74,7 @@ def generate_launch_description():
     return LaunchDescription([
         namespace_arg,
         controller_node,
-        controller_launch_desc,
-        description_launch_desc
+        joystick_launch_desc,
+        description_launch_desc,
+        rplidar_launch_desc
     ])
