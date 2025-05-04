@@ -2,8 +2,6 @@ from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
-from launch.actions import RegisterEventHandler
-from launch.event_handlers import OnProcessExit
 import os
 from ament_index_python.packages import get_package_share_directory
 
@@ -55,16 +53,10 @@ def generate_launch_description():
         ]
     )
 
-    launch_after_localization = RegisterEventHandler(
-            event_handler=OnProcessExit(
-                target_action=localization_launch_desc,
-                on_exit=[navigation_launch_desc]
-        )),
-
     return LaunchDescription([
         namespace_arg,
         use_sim_time_arg,
         map_arg,
         localization_launch_desc,
-        launch_after_localization
+        navigation_launch_desc
     ])
