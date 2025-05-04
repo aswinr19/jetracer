@@ -12,7 +12,12 @@ def generate_launch_description():
         'ns',
         description='Namespace for tf topics'
     )
+    use_sim_time_argrobot = DeclareLaunchArgument(
+        'use_sim_time',
+        description='if to use sim time'
+    )
     namespace_robot = LaunchConfiguration('ns')
+    use_sim_time = LaunchConfiguration('use_sim_time')
 
     rviz_config_file = os.path.join(
         get_package_share_directory('jetracer_bringup'), 'rviz', 'jetracer.rviz'
@@ -21,6 +26,7 @@ def generate_launch_description():
 
     return LaunchDescription([
         namespace_argrobot,
+        use_sim_time_argrobot,
         Node(
             package='rviz2',
             executable='rviz2',
@@ -48,9 +54,15 @@ def generate_launch_description():
                 ('/slam_toolbox/serialize_map', 'slam_toolbox/serialize_map'),
                 ('/slam_toolbox/set_parameters', 'slam_toolbox/set_parameters'),
                 ('/slam_toolbox/set_parameters_atomically', 'slam_toolbox/set_parameters_atomically'),
-                ('/slam_toolbox/toggle_interactive_mode', 'slam_toolbox/toggle_interactive_mode')
+                ('/slam_toolbox/toggle_interactive_mode', 'slam_toolbox/toggle_interactive_mode'),
+                ('/goal_pose', 'goal_pose'),
+                ('/initialpose', 'initialpose'),
+                ('/clicked_point', 'clicked_point')
                 ],
             output='screen',
+            parameters=[
+                {'use_sim_time': use_sim_time}
+            ],
             arguments=[
                 "-d", rviz_config_file
             ]
