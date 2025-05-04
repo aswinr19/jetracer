@@ -24,6 +24,7 @@ from launch_ros.actions import LoadComposableNodes
 from launch_ros.actions import Node
 from launch_ros.descriptions import ComposableNode, ParameterFile
 from nav2_common.launch import RewrittenYaml
+from launch_ros.actions import PushRosNamespace
 
 
 def generate_launch_description():
@@ -110,6 +111,7 @@ def generate_launch_description():
     load_nodes = GroupAction(
         condition=IfCondition(PythonExpression(['not ', use_composition])),
         actions=[
+            PushRosNamespace(namespace),
             Node(
                 package='nav2_map_server',
                 executable='map_server',
