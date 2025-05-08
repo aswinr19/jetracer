@@ -48,7 +48,7 @@ namespace JetracerController {
             jetracer = std::make_unique<JetracerSerial>(create_info, this->get_logger());
         }
         // setup publishers
-        update_f = static_cast<float>(this->get_parameter("update_f").as_double())
+        update_f = static_cast<float>(this->get_parameter("update_f").as_double());
         odom_publisher = this->create_publisher<nav_msgs::msg::Odometry>("odom", 10);
         imu_publisher = this->create_publisher<sensor_msgs::msg::Imu>("imu", 10);
         motorLvel_publisher = this->create_publisher<std_msgs::msg::Int32>("motor/lvel", 10);
