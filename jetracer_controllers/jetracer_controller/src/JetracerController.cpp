@@ -22,6 +22,7 @@ namespace JetracerController {
         this->declare_parameter<double>("c", 0);
         this->declare_parameter<double>("d", 0);
         this->declare_parameter<bool>("mock", true);
+        this->declare_parameter<double>("update_f", 20.0);
 
         // create subscriber
         subscription = this->create_subscription<geometry_msgs::msg::Twist>("cmd_vel", 10, std::bind(&JetracerController::topic_Callback, this, _1));
@@ -47,6 +48,7 @@ namespace JetracerController {
             jetracer = std::make_unique<JetracerSerial>(create_info, this->get_logger());
         }
         // setup publishers
+        update_f = static_cast<float>(this->get_parameter("update_f").as_double());
         odom_publisher = this->create_publisher<nav_msgs::msg::Odometry>("odom", 10);
         imu_publisher = this->create_publisher<sensor_msgs::msg::Imu>("imu", 10);
         motorLvel_publisher = this->create_publisher<std_msgs::msg::Int32>("motor/lvel", 10);
@@ -67,7 +69,9 @@ namespace JetracerController {
         jetracer->activate();
 
         // start publisher timer
-        timer =  this->create_wall_timer(1ms, std::bind(&JetracerController::time_Callback, this));
+        int period_ms = static_cast<int>(1000.0f / update_f);
+        RCLCPP_INFO(this->get_logger(), "update f: %f Hz => update period: %d", update_f, period_ms);
+        timer =  this->create_wall_timer(std::chrono::milliseconds(period_ms), std::bind(&JetracerController::time_Callback, this));
     }
 
 
