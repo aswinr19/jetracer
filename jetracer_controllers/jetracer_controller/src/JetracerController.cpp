@@ -22,7 +22,7 @@ namespace JetracerController {
         this->declare_parameter<double>("c", 0);
         this->declare_parameter<double>("d", 0);
         this->declare_parameter<bool>("mock", true);
-        this->declare_parameter<double>("update_f'", 20);
+        this->declare_parameter<double>("update_f", 20.0);
 
         // create subscriber
         subscription = this->create_subscription<geometry_msgs::msg::Twist>("cmd_vel", 10, std::bind(&JetracerController::topic_Callback, this, _1));
@@ -70,6 +70,7 @@ namespace JetracerController {
 
         // start publisher timer
         int period_ms = static_cast<int>(1000.0f / update_f);
+        RCLCPP_INFO(this->get_logger(), "update f: %f Hz => update period: %d", update_f, period_ms);
         timer =  this->create_wall_timer(std::chrono::milliseconds(period_ms), std::bind(&JetracerController::time_Callback, this));
     }
 
