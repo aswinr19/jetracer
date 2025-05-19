@@ -25,7 +25,7 @@ namespace JetracerController {
         this->declare_parameter<double>("update_f", 20.0);
 
         // create subscriber
-        subscription = this->create_subscription<geometry_msgs::msg::Twist>("cmd_vel", 10, std::bind(&JetracerController::topic_Callback, this, _1));
+        subscription = this->create_subscription<geometry_msgs::msg::Twist>("cmd_vel_out", 10, std::bind(&JetracerController::topic_Callback, this, _1));
 
         // create jetson interface
         JetracerCreateInfo create_info;
