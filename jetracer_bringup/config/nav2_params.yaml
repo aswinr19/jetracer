@@ -18,7 +18,7 @@ amcl:
     global_frame_id: "map"
     lambda_short: 0.1
     laser_likelihood_max_dist: 2.0
-    laser_max_range: 20.0
+    laser_max_range: 12.0
     laser_min_range: -1.0
     laser_model_type: "likelihood_field"
     #max_beams: 60 cut AMCL CPU usage
@@ -61,7 +61,7 @@ bt_navigator:
     global_frame: map
     robot_base_frame: base_link
     odom_topic: odom
-    bt_loop_duration: 10
+    bt_loop_duration: 50
     default_server_timeout: 20
     wait_for_service_timeout: 1000
     # 'default_nav_through_poses_bt_xml' and 'default_nav_to_pose_bt_xml' are use defaults:
@@ -190,7 +190,7 @@ global_costmap:
       plugins: ["static_layer", "obstacle_layer", "inflation_layer"]
       obstacle_layer:
         plugin: "nav2_costmap_2d::ObstacleLayer"
-        enabled: True
+        enabled: False
         observation_sources: scan
         scan:
           topic: /scan
@@ -272,14 +272,14 @@ planner_server:
       downsample_costmap: false # whether or not to downsample the map
       downsampling_factor: 1 # multiplier for the resolution of the costmap layer (e.g. 2 on a 5cm costmap would be 10cm)
       allow_unknown: false # allow traveling in unknown space
-      max_iterations: 1000000 # maximum total iterations to search for before failing (in case unreachable), set to -1 to disable
+      max_iterations: 100000 # maximum total iterations to search for before failing (in case unreachable), set to -1 to disable
       max_on_approach_iterations: 1000 # maximum number of iterations to attempt to reach goal once in tolerance
-      max_planning_time: 3.5 # max time in s for planner to plan, smooth, and upsample. Will scale maximum smoothing and upsampling times based on remaining time after planning.
+      max_planning_time: 5.0 # max time in s for planner to plan, smooth, and upsample. Will scale maximum smoothing and upsampling times based on remaining time after planning.
       motion_model_for_search: "DUBIN" # For Hybrid Dubin, Redds-Shepp
       cost_travel_multiplier: 2.0 # For 2D: Cost multiplier to apply to search to steer away from high cost areas. Larger values will place in the center of aisles more exactly (if non-`FREE` cost potential field exists) but take slightly longer to compute. To optimize for speed, a value of 1.0 is reasonable. A reasonable tradeoff value is 2.0. A value of 0.0 effective disables steering away from obstacles and acts like a naive binary search A*.
       angle_quantization_bins: 64 # For Hybrid nodes: Number of angle bins for search, must be 1 for 2D node (no angle search)
       #analytic_expansion_ratio: 3.5 # For Hybrid/Lattice nodes: The ratio to attempt analytic expansions during search for final approach.
-      analytic_expansion_ratio: 0.0
+      analytic_expansion_ratio: 2.0
       analytic_expansion_max_length: 3.0 # For Hybrid/Lattice nodes: The maximum length of the analytic expansion to be considered valid to prevent unsafe shortcutting (in meters). This should be scaled with minimum turning radius and be no less than 4-5x the minimum radius
       minimum_turning_radius: 0.6 # robot min move r # For Hybrid/Lattice nodes: minimum turning radius in m of path / vehicle
       reverse_penalty: 2.1 # For Reeds-Shepp model: penalty to apply if motion is reversing, must be => 1
