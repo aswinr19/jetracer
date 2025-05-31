@@ -3,6 +3,7 @@
 
     <!-- ================= ARGUMENTS  ================== -->
     <xacro:arg name="namespace" default="jetracer" />
+    <xacro:arg name="use_sim" default="true"/>
 
     <!-- ================= PROPERTIES ================== -->
     <xacro:property name="scale" value="0.001 0.001 0.001" />
@@ -66,6 +67,8 @@
     <!-- ================= INCLUDES ================== -->
     <xacro:include filename="jetracer_links.xacro" />
     <xacro:include filename="jetracer_joints.xacro" />
-    <xacro:include filename="jetracer_controllers.xacro" />
-    <xacro:include filename="jetracer_sensors.xacro" />
+    <xacro:if value="$(arg use_sim)">
+        <xacro:include filename="jetracer_controllers.xacro" />
+        <xacro:include filename="jetracer_sensors.xacro" />
+    </xacro:if>
 </robot>

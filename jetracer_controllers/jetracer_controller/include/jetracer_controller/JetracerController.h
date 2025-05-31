@@ -34,6 +34,7 @@ namespace JetracerController {
         // timer
         rclcpp::TimerBase::SharedPtr timer;
         // publishers
+        float update_f = 20.0f;
         rclcpp::Publisher<nav_msgs::msg::Odometry>::SharedPtr odom_publisher;
         rclcpp::Publisher<sensor_msgs::msg::Imu>::SharedPtr imu_publisher;
         rclcpp::Publisher<std_msgs::msg::Int32>::SharedPtr motorLvel_publisher;
