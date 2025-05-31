@@ -57,6 +57,7 @@ def generate_launch_description():
     #              https://github.com/ros2/launch_ros/issues/56
     remappings = [('/tf', 'tf'),
                   ('/tf_static', 'tf_static'),
+                  ('/scan', PythonExpression(["'/", namespace, '/scan' ,"'"])),
                   ('/map' , 'map'),
                   ('/local_costmap', 'local_costmap'),
                   ('/trajectories', 'trajectories'),
